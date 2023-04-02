@@ -1,0 +1,28 @@
+
+### получение Access Token пользователя
+POST http://localhost:8888/v1/authenticate
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+> {% client.global.set("auth_token", response.body.access_token); %}
+
+
+### проверка доступа к методу, доступному пользователю с ролью admin
+GET http://localhost:8888/api/admin
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+### провека доступа к методу, доступному пользователю с ролью USER
+GET http://localhost:8888/api/user
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+### получение информации о пользователе
+GET http://localhost:8888/api/me
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
